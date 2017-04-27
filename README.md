@@ -1,6 +1,5 @@
 # Vagrant scripts that setups a multi-node development environment
 
-- Installs Go
-- Installs Docker
-
-
+Creates a multi node VM environment with Ubuntu 16.04 LTE with the following tools:
+- Go
+- Docker
