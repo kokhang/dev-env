@@ -14,8 +14,6 @@ Vagrant.configure("2") do |config|
 
   (1..$node_count).each do |i|
     config.vm.define vm_name = "node%d" % i do |node|
-      node.ssh.shell = "bash -c 'BASH_ENV=/etc/profile exec bash'"
-
       node.vm.provision "shell", path: "install-dev-environment.sh"
       node.vm.hostname = vm_name
       node.vm.provider "vmware_fusion" do |vmf, override|
@@ -30,13 +28,6 @@ Vagrant.configure("2") do |config|
         vb.memory = $memory
         vb.cpus = $cpu
         vb.gui = true
-      end
-
-      node.vm.provision "shell" do |s|
-        ssh_pub_key = File.readlines("#{Dir.home}/.ssh/id_rsa.pub").first.strip
-        s.inline = <<-SHELL
-          echo #{ssh_pub_key} >> /home/vagrant/.ssh/authorized_keys
-        SHELL
       end
     end
   end
